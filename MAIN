@@ -1,14 +1,36 @@
 from os import system
 import time
 import threading
+import pandas as pd
+import numpy as np
+from tabula import read_pdf_table
+import PyPDF2
 
 online_manager = False
 online_lecturer = False
 online_student = False
 
+def login_teacher():
+    file_teacher = open("teacher.txt", "r+")
+    check_lines = file_teacher.readlines()
+    # print(file_srudents.readlines())
+    system("cls")
+    print("Please enter user name:")
+    user_name = input()
+    for i in check_lines:
+        if user_name == i[0:-1]:
+            print("Please enter password: ")
+            password = input()
+            for i in check_lines:
+                if password == i[0:-1]:
+                    online_lecturer = True
+        else:
+            print(user_name + " The user is not found in the system, please try again.")
+            time.sleep(3)
+
 
 def remove_users():
-    print("to remove a teacher press 1 \nto remove student press 2.")
+    print("For removing a teacher's user from the system please press 1. \nFor removing a student's user from the system please press 2.")
     check = False
     count_line = 0
     selection = int(input())
@@ -17,7 +39,7 @@ def remove_users():
         check_lines = file_teachers.readlines()
         # print(file_teachers.readlines())
         system("cls")
-        print("enter user name to remove:")
+        print("Please enter user's name to remove:")
         user_name = input()
         for i in check_lines:
             count_line = count_line + 1
@@ -36,19 +58,19 @@ def remove_users():
             f.truncate()
 
         if check == False:
-            print(user_name + " not found in the system. ")
+            print(user_name + " The user is not found in the system. ")
             time.sleep(3)
             file_teachers.close()
             remove_users()
         else:
-            print(user_name + " has removed successlly ")
+            print(user_name + " The user has been removed successlly. ")
             time.sleep(3)
             file_teachers.close()
             remove_users()
 
 
 def add_users():
-    print("to add a teacher press 1 \nfor student press 2.")
+    print("For adding a teacher to the system please press 1. \nFor adding a student to the system please press 2.")
     no_copy = True
     selection = int(input())
     if selection == 1:
@@ -56,23 +78,23 @@ def add_users():
         check_lines = file_teachers.readlines()
         # print(file_teachers.readlines())
         system("cls")
-        print("enter user name:")
+        print("Please enter user's name:")
         user_name = input()
         for i in check_lines:
             if user_name == i[0:-1]:
                 no_copy = False
 
         if no_copy == False:
-            print(user_name + " alredy exist in the system! ")
+            print(user_name + " is alredy exists in the system! ")
             time.sleep(3)
             add_users()
 
-        print("enter password:")
+        print("please enter password:")
         user_password = input()
         file_teachers.write(user_name + "\n")
         file_teachers.write(user_password + "\n")
         file_teachers.close()
-        print(user_name + " added to the system.")
+        print(user_name + " is added to the system.")
         file_teachers.close()
         time.sleep(3)
         manager_menu()
@@ -83,23 +105,23 @@ def add_users():
         check_lines = file_srudents.readlines()
         # print(file_srudents.readlines())
         system("cls")
-        print("enter user name:")
+        print("Please enter user name:")
         user_name = input()
         for i in check_lines:
             if user_name == i[0:-1]:
                 no_copy = False
 
         if no_copy == False:
-            print(user_name + " alredy exist in the system! ")
+            print(user_name + " is alredy exists in the system! ")
             time.sleep(3)
             add_users()
 
-        print("enter password:")
+        print("Please enter password:")
         user_password = input()
         file_srudents.write(user_name + "\n")
         file_srudents.write(user_password + "\n")
         file_srudents.close()
-        print(user_name + " added to the system.")
+        print(user_name + " is added to the system.")
         file_srudents.close()
         time.sleep(3)
         manager_menu()
@@ -107,12 +129,12 @@ def add_users():
 def manager_menu():
     system("cls")
 
-    print("hello manager, please select one of the next option:"
+    print("Hello manager, please select one of the following options:"
           "\n"
-          "1 - add users to the system. \n"
-          "2 - remove user from the system. \n"
-          "3 - show user list \n"
-          "4 - add questions and create bla bla bla ....\n")
+          "1 - Adding a new user to the system. \n"
+          "2 - Removing a user from the system. \n"
+          "3 - Show user list. \n"
+          "4 - Adding a new question to the questions repository in the program.\n")
     selection = int(input())
     if selection == 1:
         add_users()
@@ -122,16 +144,16 @@ def manager_menu():
     if selection == 4: None
 
 def login_menu():
-    print("hello - please select one of the next option.")
-    print("1 - login as manager")
-    print("2 - login as lecturer")
-    print("3 - login as teacher")
+    print("Hello - please select one of the following options.")
+    print("1 - log in as a manager")
+    print("2 - log in as a lecturer")
+    print("3 - log in as a student")
     selection = int(input())
 
     def login_menu_switcher(selection):
 
         if (selection < 1) or (selection > 3) :
-            print("you have to select 1 , 2 or 3 only.")
+            print("Your selection can be 1 , 2 or 3 only.")
             login_menu()
         if (selection >= 1) and (selection <= 3):
 
@@ -140,28 +162,28 @@ def login_menu():
 
                 manager_file = open("C:\\Users\\AlmogBar\\Desktop\\manager.txt" , "r")
                 if manager_file == None :
-                    print("error connect to file manager.")
+                    print("Error connecting to manager's file.")
                     return None
                 user_name = manager_file.readline()
                 password = manager_file.readline()
                 system("cls") # clear the window
-                print("enter user name:")
+                print("Please enter user name:")
                 user_name_input = input()
                 print("\n")
-                print("enter password")
+                print("Please enter password")
                 password_input = input()
 
                 if (password_input == password ) and (user_name_input == user_name[0:-1]):
                     online_lecturer = True # online !
                     manager_file.close()
                     system("cls")
-                    print("login success ...")
+                    print("...you've been logged in successfully...")
                     time.sleep(3)
                     manager_menu()
                 else:
                     manager_file.close()
                     system("cls")
-                    print("user name or password is incorrect, please try again")
+                    print("User name or password is incorrect, please try again.")
                     time.sleep(3)
                     login_menu_switcher(1)
 
@@ -174,3 +196,5 @@ def login_menu():
     login_menu_switcher(selection)
 
 login_menu()
+
+

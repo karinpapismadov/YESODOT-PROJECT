@@ -1,0 +1,29 @@
+def question_info:
+    # build with [x,x.x,z,y,t-name , platon , sol]
+    # x = topic
+    # .x topic in topic
+    # y = year
+    #t- name = lacture name
+    #platoon
+    #sol = if it include a solotion
+
+    file_PDF = open("PDF_name.txt", "r")
+    print("enter topic of the question :")
+    x = input()
+    print("enter year of creation:")
+    y = input()
+    print("the lacture name?")
+    t_name = input()
+    print("witch platoon?")
+    platoon = input()
+    def sol():
+        print("it include solotion ? for yes press 1, for no press 0")
+        sol = input()
+        if sol != '1' and sol != 0 :
+            print("input is incorect try again")
+            time.sleep(3)
+            sol()
+    sol()
+
+    file_PDF.writelines(x +"\n" + y + "\n" + t_name + "\n" + platoon + "\n" + sol)
+    file_PDF.close()

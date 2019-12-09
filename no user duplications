@@ -1,0 +1,13 @@
+check_lines = file_teachers.readlines()
+        # print(file_teachers.readlines())
+        system("cls")
+        print("Please enter user name:")
+        user_name = input()
+        for i in check_lines:
+            if user_name == i[0:-1]:
+                no_copy = False
+
+        if no_copy == False:
+            print(user_name + " is alredy exists in the system! ")
+            time.sleep(3)
+            add_users()

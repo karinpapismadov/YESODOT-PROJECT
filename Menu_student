@@ -1,0 +1,73 @@
+from appJar import gui
+
+def press(btn):
+    print(btn)
+
+def press(btn):
+    if btn == " - Press here - 1 - ":
+        app.stop()
+
+
+    if btn == " - Press here - 2 - ":
+        app.stop()
+        import main_manu
+
+
+    if btn == " BACK ":
+        app.stop()
+        
+
+
+app=gui("student menu", "650x300")
+app.setSticky("news")
+app.setExpand("both")
+
+app.setFont(13)
+
+
+app.addLabel("3", "", 0, 1)
+app.addLabel("4", "", 1, 1)
+app.addLabel("5", "", 2, 1)
+app.addLabel("6", "", 3, 1)
+app.addLabel("7", "", 4, 1)
+app.addLabel("8", "", 5, 1)
+app.addLabel("9", "", 6, 1)
+app.addLabel("10", "", 7, 1)
+
+app.addLabel("11", "Welcome SCE student!\n", 0, 0)
+app.addLabel("12", "Dear student, please select one of the following options:\n\n", 1, 0)
+app.addLabel("13", "For using the SCE question search engine", 2, 0)
+app.addButton(" - Press here - 1 - ", press,2, 1)
+app.addLabel("14", "Log out", 3, 0)
+app.addButton(" - Press here - 2 - ", press,3, 1)
+app.addLabel("15", "", 4, 0)
+app.addLabel("16", "", 5, 0)
+app.addLabel("17", "", 6, 0)
+app.addLabel("18", "", 7, 0)
+app.addLabel("19", "", 8, 0)
+app.addLabel("20", "", 8, 1)
+app.addButton(" BACK ", press,8,0)
+
+
+app.setLabelBg("3", "FloralWhite")
+app.setLabelBg("4", "FloralWhite")
+app.setLabelBg("5", "FloralWhite")
+app.setLabelBg("6", "FloralWhite")
+app.setLabelBg("7", "FloralWhite")
+app.setLabelBg("8", "FloralWhite")
+app.setLabelBg("9", "FloralWhite")
+app.setLabelBg("10", "FloralWhite")
+
+app.setLabelBg("11", "FloralWhite")
+app.setLabelBg("12", "FloralWhite")
+app.setLabelBg("13", "PapayaWhip")
+app.setLabelBg("14", "PeachPuff")
+app.setLabelBg("15", "FloralWhite")
+app.setLabelBg("16", "FloralWhite")
+app.setLabelBg("17", "FloralWhite")
+app.setLabelBg("18", "FloralWhite")
+app.setLabelBg("19", "FloralWhite")
+app.setLabelBg("20", "FloralWhite")
+
+
+app.go()

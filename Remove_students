@@ -1,0 +1,61 @@
+from appJar import gui
+
+def press(btn):
+    print(btn)
+
+app2=gui("remove student", "450x250")
+
+app2.setBg("Gainsboro")
+app2.setFont(15)
+
+app2.addLabel("title", "Student remove")
+app2.setLabelBg("title", "Lavender")
+
+app2.addLabelEntry("Username")
+
+def press(button):
+    count_line = 0
+    check = False
+    if button == "Cancel":
+        app2.stop()
+        import manager_remove_users
+    else:
+        usr = app2.getEntry("Username")
+
+        file_teachers = open("student.txt", "r+")
+        check_lines = file_teachers.readlines()
+
+        for i in check_lines:
+            count_line = count_line + 1
+            if usr == i[0:-1]:
+                check = True
+                break
+        file_teachers.close()
+
+        with open("student.txt", 'r+') as f:
+            t = f.read()
+            to_delete = usr.strip()  # input PSP0101
+            f.seek(0)
+            for line in t.split('\n'):
+                if line != to_delete:
+                    f.write(line + '\n')
+            f.truncate()
+
+        if check == False:
+            print(usr + " The user is not found in the system. ")
+            app2.soundWarning()
+            app2.warningBox("Eroor", usr + " The user is not found in the system. ", parent=None)
+            file_teachers.close()
+
+        else:
+
+            app2.infoBox("login", usr + " The user has been removed successlly. ", parent=None)
+
+            file_teachers.close()
+
+
+
+app2.addButtons(["Remove", "Cancel"], press)
+
+
+app2.go()

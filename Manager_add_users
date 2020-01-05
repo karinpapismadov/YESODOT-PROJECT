@@ -1,0 +1,75 @@
+from appJar import gui
+
+def press(btn):
+    print(btn)
+
+def press(btn):
+    if btn == " - Press here - 1 - ":
+        app.stop()
+        import add_lecturer
+
+
+    if btn == " - Press here - 2 - ":
+        app.stop()
+        import add_student
+
+
+
+    if btn == " BACK ":
+        app.stop()
+        import manu_manager
+
+
+
+app=gui("manager menu", "650x300")
+app.setSticky("news")
+app.setExpand("both")
+
+app.setFont(13)
+
+
+app.addLabel("3", "", 0, 1)
+app.addLabel("4", "", 1, 1)
+app.addLabel("5", "", 2, 1)
+app.addLabel("6", "", 3, 1)
+app.addLabel("7", "", 4, 1)
+app.addLabel("8", "", 5, 1)
+app.addLabel("9", "", 6, 1)
+app.addLabel("10", "", 7, 1)
+
+app.addLabel("11", "", 0, 0)
+app.addLabel("12", "Dear manager, please select one of the following options:\n\n", 1, 0)
+app.addLabel("13", "For adding a new teacher user to the system", 2, 0)
+app.addButton(" - Press here - 1 - ", press,2, 1)
+app.addLabel("14", "For adding a new student user to the system", 3, 0)
+app.addButton(" - Press here - 2 - ", press, 3, 1)
+app.addLabel("15", "", 4, 0)
+app.addLabel("16", "", 5, 0)
+app.addLabel("17", "", 6, 0)
+app.addLabel("18", "", 7, 0)
+app.addLabel("19", "", 8, 0)
+app.addLabel("20", "", 8, 1)
+app.addButton(" BACK ", press,8,0)
+
+
+app.setLabelBg("3", "Lavender")
+app.setLabelBg("4", "Lavender")
+app.setLabelBg("5", "Lavender")
+app.setLabelBg("6", "Lavender")
+app.setLabelBg("7", "Lavender")
+app.setLabelBg("8", "Lavender")
+app.setLabelBg("9", "Lavender")
+app.setLabelBg("10", "Lavender")
+
+app.setLabelBg("11", "Lavender")
+app.setLabelBg("12", "Lavender")
+app.setLabelBg("13", "Gainsboro")
+app.setLabelBg("14", "LightGray")
+app.setLabelBg("15", "Lavender")
+app.setLabelBg("16", "Lavender")
+app.setLabelBg("17", "Lavender")
+app.setLabelBg("18", "Lavender")
+app.setLabelBg("19", "Lavender")
+app.setLabelBg("20", "Lavender")
+
+app.go()

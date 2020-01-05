@@ -1,0 +1,55 @@
+from appJar import gui
+
+
+
+# handle button events
+def press(button):
+    if button == "Cancel":
+        app.stop()
+        import main_manu
+    else:
+
+        usr = app.getEntry("Username")
+        pwd = app.getEntry("Password")
+        online = 0
+        file_teacher = open("student.txt", "r+")
+        check_lines = file_teacher.readlines()
+
+        for i in check_lines:
+            if usr == i[0:-1]:
+
+                for i in check_lines:
+                    if pwd == i[0:-1]:
+                        online = 1
+
+
+        if online == 1 :
+            app.infoBox("login", "login successfully", parent=None)
+            app.stop()
+            import manu_student
+        else:
+            file_teacher.close()
+            app.soundWarning()
+            app.warningBox("Eroor", "user name or password is incorrect", parent=None)
+
+
+# create a GUI variable called app
+app = gui("Login Window", "400x200")
+app.setBg("gray")
+app.setFont(18)
+
+# add & configure widgets - widgets get a name, to help referencing them later
+app.addLabel("title", "Student")
+app.setLabelBg("title", "black")
+app.setLabelFg("title", "white")
+
+app.addLabelEntry("Username")
+app.addLabelSecretEntry("Password")
+
+# link the buttons to the function called press
+app.addButtons(["login", "Cancel"], press)
+
+app.setFocus("Username")
+
+# start the GUI
+app.go()

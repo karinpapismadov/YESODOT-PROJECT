@@ -1,0 +1,72 @@
+from appJar import gui
+
+
+def press(btn):
+    print(btn)
+
+
+def press(btn):
+    if btn == " - Press here - 1 - ":
+        app.stop()
+
+
+    if btn == " - Press here - 2 - ":
+        app.stop()
+        import main_manu
+
+
+    if btn == " BACK ":
+        app.stop()
+       
+
+
+app = gui("teacher menu", "650x300")
+app.setSticky("news")
+app.setExpand("both")
+
+app.setFont(13)
+
+app.addLabel("3", "", 0, 1)
+app.addLabel("4", "", 1, 1)
+app.addLabel("5", "", 2, 1)
+app.addLabel("6", "", 3, 1)
+app.addLabel("7", "", 4, 1)
+app.addLabel("8", "", 5, 1)
+app.addLabel("9", "", 6, 1)
+app.addLabel("10", "", 7, 1)
+
+app.addLabel("11", "Welcome teacher!\n", 0, 0)
+app.addLabel("12", "Dear teacher, please select one of the following options:\n\n", 1, 0)
+app.addLabel("13", "For using the SCE question search engine", 2, 0)
+app.addButton(" - Press here - 1 - ", press, 2, 1)
+app.addLabel("14", "Log out", 3, 0)
+app.addButton(" - Press here - 2 - ", press, 3, 1)
+app.addLabel("15", "", 4, 0)
+app.addLabel("16", "", 5, 0)
+app.addLabel("17", "", 6, 0)
+app.addLabel("18", "", 7, 0)
+app.addLabel("19", "", 8, 0)
+app.addLabel("20", "", 8, 1)
+app.addButton(" BACK ", press, 8, 0)
+
+app.setLabelBg("3", "Snow")
+app.setLabelBg("4", "Snow")
+app.setLabelBg("5", "Snow")
+app.setLabelBg("6", "Snow")
+app.setLabelBg("7", "Snow")
+app.setLabelBg("8", "Snow")
+app.setLabelBg("9", "Snow")
+app.setLabelBg("10", "Snow")
+
+app.setLabelBg("11", "Snow")
+app.setLabelBg("12", "Snow")
+app.setLabelBg("13", "PapayaWhip")
+app.setLabelBg("14", "Bisque")
+app.setLabelBg("15", "Snow")
+app.setLabelBg("16", "Snow")
+app.setLabelBg("17", "Snow")
+app.setLabelBg("18", "Snow")
+app.setLabelBg("19", "Snow")
+app.setLabelBg("20", "Snow")
+
+app.go()

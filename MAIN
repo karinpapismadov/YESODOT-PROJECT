@@ -1,176 +1,112 @@
-from os import system
-import time
-import threading
+# import the library
+from appJar import gui
+import os
 
-online_manager = False
-online_lecturer = False
-online_student = False
+#Platoon , Course , Topic , Sub_topic , Year , Solution, Difficult , file_name
 
+# press fn
+def press(b):
+    print('Press menu', b)
+    if (str(b) == 'Open'):
 
-def remove_users():
-    print("to remove a teacher press 1 \nto remove student press 2.")
-    check = False
-    count_line = 0
-    selection = int(input())
-    if selection == 1:
-        file_teachers = open("C:\\Users\\AlmogBar\\Desktop\\teachers.txt", "r+")
-        check_lines = file_teachers.readlines()
-        # print(file_teachers.readlines())
-        system("cls")
-        print("enter user name to remove:")
-        user_name = input()
-        for i in check_lines:
-            count_line = count_line + 1
-            if user_name == i[0:-1]:
-                check = True
-                break
-        file_teachers.close()
-
-        with open('C:\\Users\\AlmogBar\\Desktop\\teachers.txt', 'r+') as f:
-            t = f.read()
-            to_delete = user_name.strip()  # input PSP0101
-            f.seek(0)
-            for line in t.split('\n'):
-                if line != to_delete:
-                    f.write(line + '\n')
-            f.truncate()
-
-        if check == False:
-            print(user_name + " not found in the system. ")
-            time.sleep(3)
-            file_teachers.close()
-            remove_users()
-        else:
-            print(user_name + " has removed successlly ")
-            time.sleep(3)
-            file_teachers.close()
-            remove_users()
+        def save_to_system():
+            if os.path.isdir('data\\' + app.getOptionBox("Platoon") + '\\' + app.getOptionBox("Year") + '\\' + app.getOptionBox("Solution") + '\\' + app.getOptionBox("Difficult") + '\\' + app.getEntry("Course") + '\\' + app.getEntry("Topic") + '\\' + app.getEntry("Sub topic")):
+                os.replace( openFile , 'data\\' + app.getOptionBox("Platoon") + '\\' + app.getOptionBox("Year") + '\\' + app.getOptionBox("Solution") + '\\' + app.getOptionBox("Difficult") + '\\' + app.getEntry("Course") + '\\' + app.getEntry("Topic") + '\\' + app.getEntry("Sub topic") + '\\' + app.getEntry("file name") + '.pdf')
+            else:
+                os.makedirs('data\\' + app.getOptionBox("Platoon") + '\\' + app.getOptionBox("Year") + '\\' + app.getOptionBox("Solution") + '\\' + app.getOptionBox("Difficult") + '\\' + app.getEntry("Course") + '\\' + app.getEntry("Topic") + '\\' + app.getEntry("Sub topic"))
+                os.replace(openFile, 'data\\' + app.getOptionBox(
+                    "Platoon") + '\\' + app.getOptionBox("Year") + '\\' + app.getOptionBox(
+                    "Solution") + '\\' + app.getOptionBox("Difficult") + '\\' + app.getEntry(
+                    "Course") + '\\' + app.getEntry("Topic") + '\\' + app.getEntry("Sub topic") + '\\' + app.getEntry(
+                    "file name") + '.pdf')
+                app.infoBox("save", "the question added to the system successfully", parent=None)
+                app.bell()
+                app.stop()
 
 
-def add_users():
-    print("to add a teacher press 1 \nfor student press 2.")
-    no_copy = True
-    selection = int(input())
-    if selection == 1:
-        file_teachers = open("C:\\Users\\AlmogBar\\Desktop\\teachers.txt", "r+")
-        check_lines = file_teachers.readlines()
-        # print(file_teachers.readlines())
-        system("cls")
-        print("enter user name:")
-        user_name = input()
-        for i in check_lines:
-            if user_name == i[0:-1]:
-                no_copy = False
+        print('Open fn')
+        # get url of file\5874
 
-        if no_copy == False:
-            print(user_name + " alredy exist in the system! ")
-            time.sleep(3)
-            add_users()
+        openFile = app.openBox(
+            title='Open Note',
+            # only allow md,txt and py files and pdf
+            fileTypes=[
+                ('PDF File', '*.pdf'),
+                ('textfile', '*.md'),
+                ('textfile', '*.txt'),
+                ('textfile', '*.py')
+            ]
+        )
+        app.setFont(16)
+        app.addLabelOptionBox("Platoon", ["- None -", "Math", "Physics",
+                                          "Soft ware", "Machines", "Chemistry", "Industry and Management", "Building",
+                                          "Electrical", "English"])
+        app.getOptionBox("Platoon")
+        app.addLabelEntry("Course")
+        app.setEntryDefault("Course", "None")
+        app.getEntry("Course")
+        app.addLabelEntry("Topic")
+        app.setEntryDefault("Topic", "None")
+        app.getEntry("Topic")
+        app.addLabelEntry("Sub topic")
+        app.setEntryDefault("Sub topic", "None")
+        app.getEntry("Sub topic")
 
-        print("enter password:")
-        user_password = input()
-        file_teachers.write(user_name + "\n")
-        file_teachers.write(user_password + "\n")
-        file_teachers.close()
-        print(user_name + " added to the system.")
-        file_teachers.close()
-        time.sleep(3)
-        manager_menu()
-
-    if selection == 2:
-
-        file_srudents = open("C:\\Users\\AlmogBar\\Desktop\\students.txt", "r+")
-        check_lines = file_srudents.readlines()
-        # print(file_srudents.readlines())
-        system("cls")
-        print("enter user name:")
-        user_name = input()
-        for i in check_lines:
-            if user_name == i[0:-1]:
-                no_copy = False
-
-        if no_copy == False:
-            print(user_name + " alredy exist in the system! ")
-            time.sleep(3)
-            add_users()
-
-        print("enter password:")
-        user_password = input()
-        file_srudents.write(user_name + "\n")
-        file_srudents.write(user_password + "\n")
-        file_srudents.close()
-        print(user_name + " added to the system.")
-        file_srudents.close()
-        time.sleep(3)
-        manager_menu()
-
-def manager_menu():
-    system("cls")
-
-    print("hello manager, please select one of the next option:"
-          "\n"
-          "1 - add users to the system. \n"
-          "2 - remove user from the system. \n"
-          "3 - show user list \n"
-          "4 - add questions and create bla bla bla ....\n")
-    selection = int(input())
-    if selection == 1:
-        add_users()
-    if selection == 2:
-        remove_users()
-    if selection == 3: None
-    if selection == 4: None
-
-def login_menu():
-    print("hello - please select one of the next option.")
-    print("1 - login as manager")
-    print("2 - login as lecturer")
-    print("3 - login as teacher")
-    selection = int(input())
-
-    def login_menu_switcher(selection):
-
-        if (selection < 1) or (selection > 3) :
-            print("you have to select 1 , 2 or 3 only.")
-            login_menu()
-        if (selection >= 1) and (selection <= 3):
-
-            if selection == 1 : # manager log in
+        app.addLabelOptionBox("Year", ["- None -", "2019", "2018",
+                                            "2017", "2016", "2015", "2014", "2013",
+                                            "2012", "2011"])
+        app.getOptionBox("Year")
+        app.addLabelOptionBox("Solution", ["- None -", "full solution", "last solution",
+                                            "no solution"])
+        app.getOptionBox("Solution")
+        app.addLabelOptionBox("Difficult", ["- None -", "hard", "medium",
+                                            "easy"])
+        app.getOptionBox("Difficult")
+        app.addLabelEntry("file name")
+        app.setEntryDefault("file name", "enter name")
+        app.getEntry("file name")
+        app.buttons(["Add to system", "Cancel"], [save_to_system, app.stop])
 
 
-                manager_file = open("C:\\Users\\AlmogBar\\Desktop\\manager.txt" , "r")
-                if manager_file == None :
-                    print("error connect to file manager.")
-                    return None
-                user_name = manager_file.readline()
-                password = manager_file.readline()
-                system("cls") # clear the window
-                print("enter user name:")
-                user_name_input = input()
-                print("\n")
-                print("enter password")
-                password_input = input()
 
-                if (password_input == password ) and (user_name_input == user_name[0:-1]):
-                    online_lecturer = True # online !
-                    manager_file.close()
-                    system("cls")
-                    print("login success ...")
-                    time.sleep(3)
-                    manager_menu()
-                else:
-                    manager_file.close()
-                    system("cls")
-                    print("user name or password is incorrect, please try again")
-                    time.sleep(3)
-                    login_menu_switcher(1)
+    # choose save option
+    elif (str(b) == 'Save'):
+        print('Save fn')
+        saveFile = app.saveBox(
+            title='Save Note',
+            fileName='demo'
+        )
+        # open file
+        filename = open(saveFile, 'w')
+        # read file
+        content = filename.write(app.getTextArea('t1'))
+        # close file
+        filename.close()
 
-            if selection == 2 : # teacher login
+    elif (str(b) == 'Close'):
+        print('Close fn')
+        # close app
+        app.stop()
 
-                print("lecturer")
-            if selection == 3 :
-                print("student")
+    elif (str(b) == 'About'):
+        print('About button')
+        # show info box
+        app.infoBox('About us', """Made with love by \n Almog Bar \n Karin \n liav \n lidor""")
 
-    login_menu_switcher(selection)
 
-login_menu()
+# create a GUI variable called app
+name = "Selection"
+size = "500x500"
+resizable = True
+
+## init v1.0
+with gui(name, size, resizable=resizable) as app:
+    # navigation
+    app.addMenuList("File", ["Open", "Save", "-", "Close"], press)
+    app.addMenu("About", press)
+
+    app.addScrolledTextArea('t1')
+    app.setTextAreaBg('t1', '#333')
+    app.setTextAreaFg('t1', 'aqua')
+    app.setTextAreaPadding('t1', [10, 10])
+    app.setTextArea('t1', 'Open file on menu...')

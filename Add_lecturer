@@ -1,0 +1,52 @@
+from appJar import gui
+
+app4=gui("add teacher", "450x250")
+app4.setBg("Gainsboro")
+app4.setFont(15)
+
+app4.addLabel("title", "Add teacher")
+app4.setLabelBg("title", "Lavender")
+
+
+app4.addLabelEntry("Full name")
+app4.addLabelEntry("Username")
+app4.addLabelEntry("Password")
+
+def press(button):
+    no_copy = True
+    if button == "Cancel":
+        app4.stop()
+        import manager_add_user
+    else:
+        fname = app4.getEntry("Full name")
+        usr = app4.getEntry("Username")
+        pwd = app4.getEntry("Password")
+        print("User:", usr, "Pass:", pwd, "Full name:", fname)
+        file_teachers = open("teacher.txt", "r+")
+        file_names = open("fullnames.txt", "a")
+        check_lines = file_teachers.readlines()
+
+        for i in check_lines:
+            if usr == i[0:-1]:
+                no_copy = False
+
+        if no_copy == False:
+            app4.soundWarning()
+            app4.warningBox("Error", usr + " already exist", parent=None)
+
+        else:
+            file_teachers.write(usr + "\n")
+            file_teachers.write(pwd + "\n")
+            file_names.write(fname + "\n")
+            file_teachers.close()
+            app4.infoBox("login", usr + " has added to the system", parent=None)
+            file_names.close()
+
+
+
+
+
+
+app4.addButtons(["Add", "Cancel"], press)
+
+app4.go()

@@ -1,0 +1,3 @@
+def add_set_function(list , value):
+    list.append(value)
+    return list

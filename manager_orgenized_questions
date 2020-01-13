@@ -1,0 +1,124 @@
+# import the library
+from appJar import gui
+import os
+from log_file import insert_to_loglife
+import timeit
+
+insert_to_loglife("manager orginazed qustions"+  str(timeit.timeit()))
+#Platoon , Course , Topic , Sub_topic , Year , Solution, Difficult , file_name
+
+def add_input_to_file_list(word):
+    with open("save_inputs.txt", "a") as list_of_inputs_file:
+        list_of_inputs_file.write(word)
+        list_of_inputs_file.write("\n")
+
+# press fn
+def press(b):
+    print('Press menu', b)
+    if (str(b) == 'Open'):
+
+        def save_to_system():
+            if os.path.isdir('data\\' + app.getOptionBox("Platoon") + '\\' + app.getOptionBox("Year") + '\\' + app.getOptionBox("Solution") + '\\' + app.getOptionBox("Difficult") + '\\' + app.getEntry("Course") + '\\' + app.getEntry("Topic") + '\\' + app.getEntry("Sub topic")):
+                os.replace( openFile , 'data\\' + app.getOptionBox("Platoon") + '\\' + app.getOptionBox("Year") + '\\' + app.getOptionBox("Solution") + '\\' + app.getOptionBox("Difficult") + '\\' + app.getEntry("Course") + '\\' + app.getEntry("Topic") + '\\' + app.getEntry("Sub topic") + '\\' + app.getEntry("file name") + '.pdf')
+            else:
+                os.makedirs('data\\' + app.getOptionBox("Platoon") + '\\' + app.getOptionBox("Year") + '\\' + app.getOptionBox("Solution") + '\\' + app.getOptionBox("Difficult") + '\\' + app.getEntry("Course") + '\\' + app.getEntry("Topic") + '\\' + app.getEntry("Sub topic"))
+                os.replace(openFile, 'data\\' + app.getOptionBox(
+                    "Platoon") + '\\' + app.getOptionBox("Year") + '\\' + app.getOptionBox(
+                    "Solution") + '\\' + app.getOptionBox("Difficult") + '\\' + app.getEntry(
+                    "Course") + '\\' + app.getEntry("Topic") + '\\' + app.getEntry("Sub topic") + '\\' + app.getEntry(
+                    "file name") + '.pdf')
+                add_input_to_file_list(app.getEntry("Sub topic"))
+                add_input_to_file_list(app.getEntry("Course"))
+                add_input_to_file_list(app.getEntry("Topic"))
+                app.infoBox("save", "the question added to the system successfully", parent=None)
+                app.bell()
+                app.stop()
+
+        print('Open fn')
+        # get url of file\5874
+
+        openFile = app.openBox(
+            title='Open Note',
+            # only allow md,txt and py files and pdf
+            fileTypes=[
+                ('PDF File', '*.pdf'),
+                ('textfile', '*.md'),
+                ('textfile', '*.txt'),
+                ('textfile', '*.py')
+            ]
+        )
+        app.setFont(16)
+        app.addLabelOptionBox("Platoon", ["- None -", "Math", "Physics",
+                                          "Soft ware", "Machines", "Chemistry", "Industry and Management", "Building",
+                                          "Electrical", "English"])
+        app.getOptionBox("Platoon")
+        app.addLabelEntry("Course")
+        app.setEntryDefault("Course", "None")
+        app.getEntry("Course")
+
+        app.addLabelEntry("Topic")
+        app.setEntryDefault("Topic", "None")
+        app.getEntry("Topic")
+
+        app.addLabelEntry("Sub topic")
+        app.setEntryDefault("Sub topic", "None")
+        app.getEntry("Sub topic")
+
+        app.addLabelOptionBox("Year", ["- None -", "2019", "2018",
+                                            "2017", "2016", "2015", "2014", "2013",
+                                            "2012", "2011"])
+        app.getOptionBox("Year")
+        app.addLabelOptionBox("Solution", ["- None -", "full solution", "last solution",
+                                            "no solution"])
+        app.getOptionBox("Solution")
+        app.addLabelOptionBox("Difficult", ["- None -", "hard", "medium",
+                                            "easy"])
+        app.getOptionBox("Difficult")
+        app.addLabelEntry("file name")
+        app.setEntryDefault("file name", "enter name")
+        app.getEntry("file name")
+        app.buttons(["Add to system", "Cancel"], [save_to_system, app.stop])
+
+
+
+    # choose save option
+    elif (str(b) == 'Save'):
+        print('Save fn')
+        saveFile = app.saveBox(
+            title='Save Note',
+            fileName='demo'
+        )
+        # open file
+        filename = open(saveFile, 'w')
+        # read file
+        content = filename.write(app.getTextArea('t1'))
+        # close file
+        filename.close()
+
+    elif (str(b) == 'Close'):
+        print('Close fn')
+        # close app
+        app.stop()
+
+    elif (str(b) == 'About'):
+        print('About button')
+        # show info box
+        app.infoBox('About us', """Made with love by \n Almog Bar \n Karin \n liav \n lidor""")
+
+
+# create a GUI variable called app
+name = "Selection"
+size = "500x500"
+resizable = True
+
+## init v1.0
+with gui(name, size, resizable=resizable) as app:
+    # navigation
+    app.addMenuList("File", ["Open", "Save", "-", "Close"], press)
+    app.addMenu("About", press)
+
+    app.addScrolledTextArea('t1')
+    app.setTextAreaBg('t1', '#333')
+    app.setTextAreaFg('t1', 'aqua')
+    app.setTextAreaPadding('t1', [10, 10])
+    app.setTextArea('t1', 'Open file on menu...')

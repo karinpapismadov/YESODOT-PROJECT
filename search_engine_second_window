@@ -1,0 +1,40 @@
+from appJar import gui
+from function_auto_entry import add_set_function
+
+def search_engine_second_window_function(platoon):
+    app = gui("test", "450x350")
+
+    solution = {"No solution": False, "With solution": False, "Last solution": False}
+    diff = {"Hard": False, "Medium": False, "Easy": False}
+
+    with open("save_inputs.txt", "r") as list_of_inputs_file:
+        list_of_inputs_file = list_of_inputs_file.read()
+        list_of_inputs_file = list_of_inputs_file.split()
+
+    list_input = []
+    for i in list_of_inputs_file:
+        list_input.append(i)
+
+    app.setBg("DarkGray")
+    app.setFont(12)
+    app.addProperties("Solution", solution)
+    app.addProperties("Difficult", diff, 0, 3)
+
+    app.addAutoEntry("course", [""])
+    app.appendAutoEntry("course", list_input)
+    app.setEntryDefault("course", "course")
+
+    app.addAutoEntry("topic", [""])
+    app.appendAutoEntry("topic", list_input)
+    app.setEntryDefault("topic", "topic")
+
+    app.addAutoEntry("sub topic", [""])
+    app.appendAutoEntry("sub topic", list_input)
+    app.setEntryDefault("sub topic", "sub topic")
+
+    input_user = app.getEntry("course")
+
+    app.addButton("GET", None)
+    app.addButton("Back", None)
+
+    app.go()

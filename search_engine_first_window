@@ -1,0 +1,57 @@
+from appJar import gui
+from search_engine_second_window import search_engine_second_window_function
+
+def press(btn):
+    if btn == " math     ":
+        app.stop()
+        search_engine_second_window_function("Math")
+
+    if btn == " physics   ":
+        app.stop()
+        search_engine_second_window_function("Physics")
+
+    if btn == " soft ware":
+        app.stop()
+        search_engine_second_window_function("Soft ware")
+
+    if btn == " machines ":
+        app.stop()
+        search_engine_second_window_function("Machines")
+
+    if btn == " chemistry ":
+        app.stop()
+        search_engine_second_window_function("Chemistry")
+
+    if btn == " management ":
+        app.stop()
+        search_engine_second_window_function("Management")
+
+    if btn == " building  ":
+        app.stop()
+        search_engine_second_window_function("Building")
+
+    if btn == " electrical":
+        app.stop()
+        search_engine_second_window_function("Electrical")
+
+    if btn == " english   ":
+        app.stop()
+        search_engine_second_window_function("English")
+
+
+
+app = gui("Search engine", "200x500")
+app.setFont(13)
+app.setBg("DarkGray")
+app.addLabel("title", "Select your platoon:")
+
+app.addButton(" math     ", press)
+app.addButton(" physics   ", press)
+app.addButton(" soft ware", press)
+app.addButton(" machines ", press)
+app.addButton(" chemistry ", press)
+app.addButton(" management ", press)
+app.addButton(" building  ", press)
+app.addButton(" electrical", press)
+app.addButton(" english   ", press)
+app.go()
